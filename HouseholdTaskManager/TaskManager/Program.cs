@@ -1,4 +1,7 @@
 ﻿namespace TaskManager;
+using System;//writeline
+using System.Collections.Generic;//collections
+using System.IO;//readlines
 
 class Program
 {
@@ -8,7 +11,13 @@ class Program
         Console.Write("Please select Mode (Admin or User)\n");
         string mode = Console.ReadLine();
         List<string> users = new List<string> { "Sam", "JohnCena", "Dom" };
-
+        string textFile = "records.txt";
+        var data = readCsvTo2Dlist(textFile);
+        printAllRecordsSimple(data);
+        // foreach(var row in data) {
+        //     Console.WriteLine(string.Join(" | ", row));
+        // }
+        //Console.WriteLine(text);
         if(mode == "User") {
             string user = selectUser(users);
             do {
@@ -55,7 +64,25 @@ class Program
         return choice;
     }
 
+    static void printTasksByUser(string user) {
 
+    }
+
+    static void printAllRecordsSimple(List<List<string>> data) {
+        foreach(var row in data) {
+             Console.WriteLine(string.Join(" | ", row));
+        }
+    }
+
+    static List<List<string>> readCsvTo2Dlist(string textFile ){
+    var result = new List<List<string>>();
+    
+    foreach(var line in File.ReadLines(textFile)) {
+        var values = line.Split(',');
+        result.Add(new List<string>(values));
+    }
+    return result;
+    }
 
 
 }
