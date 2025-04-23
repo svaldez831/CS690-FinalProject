@@ -13,7 +13,8 @@ class Program
         List<string> users = new List<string> { "Sam", "JohnCena", "Dom" };
         string textFile = "records.txt";
         var data = readCsvTo2Dlist(textFile);
-        
+        var bills = extractBills(data);
+        var tasks = extractTasks(data);
         // foreach(var row in data) {
         //     Console.WriteLine(string.Join(" | ", row));
         // }
@@ -23,7 +24,7 @@ class Program
             do {
                 
                 Console.Write("Welcome Back " + user +  "\n  ");
-                var bills = extractBills(data);
+                
                 choice = Console.ReadLine();
                 if(choice == "END") {
                     runProgram = false;
@@ -62,6 +63,22 @@ class Program
         
         return result;
 
+    } 
+
+    
+    static List<List<string>> extractTasks (List<List<string>> data) {
+         var result = new List<List<string>>();
+        string keyword = "Task";
+        foreach (var row in data) {
+            if (row.Count > 1 && row[1] == keyword) {
+                result.Add(new List<string>(row));
+            }
+        }
+        foreach (var row in result) {
+            Console.WriteLine(string.Join(" | ", row));
+        }
+        
+        return result;
     } 
     static string selectUser(List<string> userList) {
         string choice;
