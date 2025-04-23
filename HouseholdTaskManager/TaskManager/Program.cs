@@ -13,7 +13,7 @@ class Program
         List<string> users = new List<string> { "Sam", "JohnCena", "Dom" };
         string textFile = "records.txt";
         var data = readCsvTo2Dlist(textFile);
-        printAllRecordsSimple(data);
+        
         // foreach(var row in data) {
         //     Console.WriteLine(string.Join(" | ", row));
         // }
@@ -22,13 +22,14 @@ class Program
             string user = selectUser(users);
             do {
                 
-                Console.Write("HELLO " + user +  " OR 'END' TO EXIT\n");
+                Console.Write("Welcome Back " + user +  "\n  ");
+                var bills = extractBills(data);
                 choice = Console.ReadLine();
                 if(choice == "END") {
                     runProgram = false;
                 }
                 else {
-
+                    printAllRecordsSimple(data);
                 }
                 
             } while(runProgram);
@@ -46,6 +47,22 @@ class Program
             } while(runProgram);
         }
     }
+
+    static List<List<string>> extractBills (List<List<string>> data) {
+         var result = new List<List<string>>();
+        string keyword = "Bill";
+        foreach (var row in data) {
+            if (row.Count > 1 && row[1] == keyword) {
+                result.Add(new List<string>(row));
+            }
+        }
+        foreach (var row in result) {
+            Console.WriteLine(string.Join(" | ", row));
+        }
+        
+        return result;
+
+    } 
     static string selectUser(List<string> userList) {
         string choice;
         Console.Write("Who Are you?\n");
