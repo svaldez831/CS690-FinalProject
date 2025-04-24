@@ -24,7 +24,10 @@ class Program
             do {
                 
                 Console.Write("Welcome Back " + user +  "\n  ");
-                
+                var billsByUser = extractByUser(bills, user);
+                var tasksByUSer = extractByUser(tasks, user);
+                Console.Write("You have " + tasksByUSer.Count + " assigned to you.\n And " + billsByUser.Count + " upcoming bill you have to pay\n");
+                Console.Write("Enter [1] to see Tasks or \n [2] for Upcoming Bills.\n");
                 choice = Console.ReadLine();
                 if(choice == "END") {
                     runProgram = false;
@@ -55,11 +58,26 @@ class Program
         foreach (var row in data) {
             if (row.Count > 1 && row[1] == keyword) {
                 result.Add(new List<string>(row));
+                
             }
         }
-        foreach (var row in result) {
-            Console.WriteLine(string.Join(" | ", row));
+
+        
+        return result;
+
+    } 
+
+        static List<List<string>> extractByUser (List<List<string>> data, string user) {
+         var result = new List<List<string>>();
+        string keyword = user;
+        
+        foreach (var row in data) {
+            if (row.Count > 1 && row[2] == keyword) {
+                result.Add(new List<string>(row));
+                
+            }
         }
+
         
         return result;
 
@@ -74,9 +92,7 @@ class Program
                 result.Add(new List<string>(row));
             }
         }
-        foreach (var row in result) {
-            Console.WriteLine(string.Join(" | ", row));
-        }
+
         
         return result;
     } 
@@ -99,7 +115,9 @@ class Program
     }
 
     static void printTasksByUser(string user) {
-
+            //foreach (var row in result) {
+            //Console.WriteLine(string.Join(" | ", row));
+        //}
     }
 
     static void printAllRecordsSimple(List<List<string>> data) {
