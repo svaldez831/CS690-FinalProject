@@ -6,69 +6,79 @@ using System.IO;//readlines
 class Program
 {
     static void Main(string[] args) { 
+        string mode;
         bool runProgram = true;
-        string choice;
-        Console.Write("Please select Mode (Admin or User)\n");
-        string mode = Console.ReadLine();
-        List<string> users = new List<string> { "Sam", "JohnCena", "Dom" };
-        string textFile = "records.txt";
-        var data = readCsvTo2Dlist(textFile);
-        var bills = extractBills(data);
-        var tasks = extractTasks(data);
-        // foreach(var row in data) {
-        //     Console.WriteLine(string.Join(" | ", row));
-        // }
-        //Console.WriteLine(text);
-        if(mode == "User") {
-            string user = selectUser(users);
-            do {
-                
-                Console.Write("Welcome Back " + user +  "\n \n ");
-                var billsByUser = extractByUser(bills, user);
-                var tasksByUSer = extractByUser(tasks, user);
-                Console.Write("You have " + tasksByUSer.Count + " task assigned to you.\n And " + billsByUser.Count + " upcoming bill you have to pay\n");
-                Console.Write("Enter [1] to see Tasks or \n [2] for Upcoming Bills.\n\n");
-                choice = Console.ReadLine();
-                if(choice == "END") {
-                    runProgram = false;
-                }
-                else {
-                    if(choice == "1"){
-                        if(billsByUser.Count == 0) {
-                            Console.Write("0 Tasks are assigned to you");
-                        } else{
-                        printAllRecordsSimple(tasksByUSer);
-                        }
+        bool backToMain = true;
+        do {
+            runProgram = true;
+            backToMain = true;
+            string choice;
+            Console.Write("Please select Mode (Admin or User) or END to exit Program\n");
+            mode = Console.ReadLine();
+            List<string> users = new List<string> { "Sam", "JohnCena", "Dom" };
+            string textFile = "records.txt";
+            var data = readCsvTo2Dlist(textFile);
+            var bills = extractBills(data);
+            var tasks = extractTasks(data);
+       
+            if(mode == "User") {
+                string user = selectUser(users);
+                do {
+                    Console.Write("\n Welcome Back " + user +  "\n \n ");
+                    var billsByUser = extractByUser(bills, user);
+                    var tasksByUSer = extractByUser(tasks, user);
+                    Console.Write("You have " + tasksByUSer.Count + " task assigned to you. And " + billsByUser.Count + " upcoming bill you have to pay.\n\n");
+                    Console.Write("Enter [1] to see Tasks or  [2] for Upcoming Bills. or 'Back' to go back to \n");
+                    choice = Console.ReadLine();
+                    if(choice == "Back") {
+                        backToMain = false;
+                    } 
+                    else if(choice == "1") {
+                            if(tasksByUSer.Count == 0) {
+                                Console.Write("0 Tasks are assigned to you");
+                            } 
+                            else {
+                                printAllRecordsSimple(tasksByUSer);
+                            }
             
-                    }else{
-                        if(billsByUser.Count == 0) {
-                            Console.Write("0 Bills are assigned to you");
-                        } else{
-                        printAllRecordsSimple(billsByUser);
-                        }
+                    } 
+                    else if (choice == "2"){
+                            if(billsByUser.Count == 0) {
+                                Console.Write("0 Bills are assigned to you");
+                            } 
+                            else {
+                                printAllRecordsSimple(billsByUser);
+                            }
                        
+                        }
+                    else {
+                        Console.Write("Enter a Correct Option\n");
                     }
-                    
-                }
-                
-            } while(runProgram);
-        } else {
-            do {
-                Console.Write("Hello ADMIN Select AN OPTION OR 'END' TO EXIT\n");
-                choice = Console.ReadLine();
-                if(choice == "END") {
-                    runProgram = false;
-                }
-                else {
 
-                }
+                } while(backToMain);
+            } 
+            else if(mode == "Admin") {
+                do {
+                    Console.Write("Hello ADMIN Select AN OPTION OR 'Back' to go Back to Main Menu\n");
+                    choice = Console.ReadLine();
+                    if(choice == "END") {
+                        backToMain = false;
+                    }
+                    else {
 
-            } while(runProgram);
-        }
+                    }
+
+                } while(backToMain);
+            }
+            else {
+                runProgram = false;
+            }
+
+        } while(runProgram);
     }
 
     static List<List<string>> extractBills (List<List<string>> data) {
-         var result = new List<List<string>>();
+        var result = new List<List<string>>();
         string keyword = "Bill";
         foreach (var row in data) {
             if (row.Count > 1 && row[1] == keyword) {
@@ -83,7 +93,7 @@ class Program
     } 
 
         static List<List<string>> extractByUser (List<List<string>> data, string user) {
-         var result = new List<List<string>>();
+        var result = new List<List<string>>();
         string keyword = user;
         
         foreach (var row in data) {
@@ -100,7 +110,7 @@ class Program
 
     
     static List<List<string>> extractTasks (List<List<string>> data) {
-         var result = new List<List<string>>();
+        var result = new List<List<string>>();
         string keyword = "Task";
         foreach (var row in data) {
             if (row.Count > 1 && row[1] == keyword) {
@@ -118,11 +128,13 @@ class Program
             Console.Write("Press " +  (i+1) + " for "+ userList[i] + "\n");
         }
         int user = Int32.Parse(Console.ReadLine());
-        if(user == 1){
+        if(user == 1) {
             choice = userList[0];
-        } else if(user == 2) {
+        } 
+        else if(user == 2) {
             choice = userList[1];
-        } else {
+        } 
+        else {
             choice = userList[2];
         }
 
@@ -137,19 +149,19 @@ class Program
 
     static void printAllRecordsSimple(List<List<string>> data) {
         foreach(var row in data) {
-             Console.WriteLine(string.Join(" | ", row));
+            Console.WriteLine(string.Join(" | ", row));
         }
         Console.Write("\n");
     }
 
     static List<List<string>> readCsvTo2Dlist(string textFile ){
-    var result = new List<List<string>>();
-    
-    foreach(var line in File.ReadLines(textFile)) {
-        var values = line.Split(',');
-        result.Add(new List<string>(values));
-    }
-    return result;
+        var result = new List<List<string>>();
+        
+        foreach(var line in File.ReadLines(textFile)) {
+            var values = line.Split(',');
+            result.Add(new List<string>(values));
+        }
+        return result;
     }
 
 
