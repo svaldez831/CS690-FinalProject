@@ -23,17 +23,32 @@ class Program
             string user = selectUser(users);
             do {
                 
-                Console.Write("Welcome Back " + user +  "\n  ");
+                Console.Write("Welcome Back " + user +  "\n \n ");
                 var billsByUser = extractByUser(bills, user);
                 var tasksByUSer = extractByUser(tasks, user);
-                Console.Write("You have " + tasksByUSer.Count + " assigned to you.\n And " + billsByUser.Count + " upcoming bill you have to pay\n");
-                Console.Write("Enter [1] to see Tasks or \n [2] for Upcoming Bills.\n");
+                Console.Write("You have " + tasksByUSer.Count + " task assigned to you.\n And " + billsByUser.Count + " upcoming bill you have to pay\n");
+                Console.Write("Enter [1] to see Tasks or \n [2] for Upcoming Bills.\n\n");
                 choice = Console.ReadLine();
                 if(choice == "END") {
                     runProgram = false;
                 }
                 else {
-                    printAllRecordsSimple(data);
+                    if(choice == "1"){
+                        if(billsByUser.Count == 0) {
+                            Console.Write("0 Tasks are assigned to you");
+                        } else{
+                        printAllRecordsSimple(tasksByUSer);
+                        }
+            
+                    }else{
+                        if(billsByUser.Count == 0) {
+                            Console.Write("0 Bills are assigned to you");
+                        } else{
+                        printAllRecordsSimple(billsByUser);
+                        }
+                       
+                    }
+                    
                 }
                 
             } while(runProgram);
@@ -124,6 +139,7 @@ class Program
         foreach(var row in data) {
              Console.WriteLine(string.Join(" | ", row));
         }
+        Console.Write("\n");
     }
 
     static List<List<string>> readCsvTo2Dlist(string textFile ){
