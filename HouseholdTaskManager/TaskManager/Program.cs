@@ -9,6 +9,8 @@ class Program
         string mode;
         bool runProgram = true;
         bool backToMain = true;
+        string selectedTask;
+        List<string> modifiedTask;
         do {
             runProgram = true;
             backToMain = true;
@@ -39,6 +41,11 @@ class Program
                             } 
                             else {
                                 printAllRecordsSimple(tasksByUSer);
+                                Console.Write("\n Please Choose a task to edit further,  etc\n");
+                                selectedTask = Console.ReadLine();
+                                int selectedTask1 = int.Parse(selectedTask);
+                                List<string> modifiedRow = new List<string>( editSelectedTask( tasksByUSer[(selectedTask1 - 1)]));
+                                //modifiedTask = editSelectedTask(row);
                             }
             
                     } 
@@ -75,6 +82,80 @@ class Program
             }
 
         } while(runProgram);
+    }
+
+    static void saveToFile(List<string> data ) {
+        List<string> lines = File.ReadLines("records.txt").ToList();
+       
+       for(int i = 0; i < lines.Count; i++) {
+        string[] columns = lines[i].Split(',');
+
+        if(columns[0].Trim() == data[0].Trim()) {
+            columns[1] = data[1];
+            columns[2] = data[2];
+            columns[3] = data[3];
+            columns[4] = data[4];
+            columns[5] = data[5];
+            columns[6] = data[6];
+            columns[7] = data[7];
+            columns[8] = data[8];
+            columns[9] = data[9];
+
+            lines[i] = string.Join(",", columns);
+            break;
+        }
+       
+       }
+        
+
+       
+        File.WriteAllLines("records.txt",lines);
+
+    }
+    static List<string>  editSelectedTask ( List<string> data) {
+        bool save = false;
+        string change;
+        string addNote;
+        string note = " "+ data[2] + ": ";
+        string letsSave;
+      while(!save) {
+        Console.Write(data[3] + "\n Have you finished this task? Yes or No");
+        change = Console.ReadLine();
+        if(change == "Yes") {
+            string lastModified = DateTime.Now.ToString("dd-MM-yyyy");
+            Console.Write("Task Changed to Complete, Last Modified:"+ lastModified + "\n");
+            data[7] = "true";
+            data[5] =lastModified;
+            data[6] = lastModified;
+        }
+        Console.Write("Would you like to add a note? Start Typing if not type 'No' \n");
+        addNote = Console.ReadLine();
+
+        if(note == "No") {
+            data.Add(note + "No Note.");
+        }
+        else {
+            if(data.Count < 10) {
+                data.Add(note + addNote);
+            }
+            else{
+                data[9] += note + addNote;
+            }
+            
+        }
+        Console.Write("Would you like to save? Yes and Exit or Change Something else?\n");
+        letsSave = Console.ReadLine();
+
+        if(letsSave == "Yes") {
+            save = true;
+            saveToFile(data);
+        }
+
+      }
+        //Console.WriteLine(string.Join(", ", data));
+
+        
+        return data;
     }
 
     static List<List<string>> extractBills (List<List<string>> data) {
@@ -148,8 +229,10 @@ class Program
     }
 
     static void printAllRecordsSimple(List<List<string>> data) {
+        int counter = 1;
         foreach(var row in data) {
-            Console.WriteLine(string.Join(" | ", row));
+            Console.WriteLine(counter +") "+ string.Join(" | ", row));
+            counter++;
         }
         Console.Write("\n");
     }
