@@ -37,15 +37,18 @@ class Program
                     } 
                     else if(choice == "1") {
                             if(tasksByUSer.Count == 0) {
-                                Console.Write("0 Tasks are assigned to you");
+                                Console.Write("0 Tasks are assigned to you\n");
                             } 
                             else {
                                 printAllRecordsSimple(tasksByUSer);
-                                Console.Write("\n Please Choose a task to edit further,  etc\n");
+                                Console.Write("\n Please Choose a task to edit further \n");
                                 selectedTask = Console.ReadLine();
                                 int selectedTask1 = int.Parse(selectedTask);
-                                List<string> modifiedRow = new List<string>( editSelectedTask( tasksByUSer[(selectedTask1 - 1)]));
+                                List<string> modifiedRow = new List<string>( editSelectedTask( tasksByUSer[(selectedTask1 - 1)], "Task"));
                                 //modifiedTask = editSelectedTask(row);
+                                data = readCsvTo2Dlist(textFile);
+                                tasks = extractTasks(data);
+                                tasksByUSer = extractByUser(tasks, user);
                             }
             
                     } 
@@ -55,6 +58,14 @@ class Program
                             } 
                             else {
                                 printAllRecordsSimple(billsByUser);
+                                Console.Write("\n Please Choose a Bill to edit further \n");
+                                selectedTask = Console.ReadLine();
+                                int selectedTask1 = int.Parse(selectedTask);
+                                List<string> modifiedRow = new List<string>( editSelectedTask( billsByUser[(selectedTask1 - 1)], "Bill"));
+                                //modifiedTask = editSelectedTask(row);
+                                data = readCsvTo2Dlist(textFile);
+                                bills = extractTasks(data);
+                                billsByUser = extractByUser(bills, user);
                             }
                        
                         }
@@ -112,18 +123,31 @@ class Program
         File.WriteAllLines("records.txt",lines);
 
     }
-    static List<string>  editSelectedTask ( List<string> data) {
+    static List<string>  editSelectedTask ( List<string> data, string type) {
         bool save = false;
         string change;
         string addNote;
         string note = " "+ data[2] + ": ";
         string letsSave;
       while(!save) {
-        Console.Write(data[3] + "\n Have you finished this task? Yes or No");
+        if(type == "Task") {
+            Console.Write(data[3] + "\n Have you finished this task? Yes or No");
+        }
+        else {
+            Console.Write(data[3] + "\n Have you Paid this Bill? Yes or No");
+        }
+        
         change = Console.ReadLine();
         if(change == "Yes") {
+
             string lastModified = DateTime.Now.ToString("dd-MM-yyyy");
-            Console.Write("Task Changed to Complete, Last Modified:"+ lastModified + "\n");
+            if(type == "Task") {
+                Console.Write("Task Changed to Complete, Last Modified:"+ lastModified + "\n");
+            } 
+            else{
+                Console.Write("Bill Paid, Last Modified:"+ lastModified + "\n");
+
+            }
             data[7] = "true";
             data[5] =lastModified;
             data[6] = lastModified;
