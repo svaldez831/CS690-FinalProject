@@ -77,13 +77,16 @@ class Program
             } 
             else if(mode == "Admin") {
                 do {
-                    Console.Write("Hello ADMIN Select AN OPTION OR 'Back' to go Back to Main Menu\n");
+                    Console.Write("To login to the admin type the admin password: 'admin' or to go back to the Menu Type 'Back'\n");
                     choice = Console.ReadLine();
-                    if(choice == "END") {
+                    if(choice == "Back") {
                         backToMain = false;
                     }
+                    else if (adminLogin(choice)){
+                        Console.Write("WELCOME ADMIN\n");
+                    }
                     else {
-
+                        Console.Write("Enter a Correct Option Try Again\n");
                     }
 
                 } while(backToMain);
@@ -95,6 +98,14 @@ class Program
         } while(runProgram);
     }
 
+
+    static bool adminLogin(string login) {
+        if(login == "admin") {
+            return true;
+        } else {
+            return false;
+        }
+    }
     static void saveToFile(List<string> data ) {
         List<string> lines = File.ReadLines("records.txt").ToList();
        
