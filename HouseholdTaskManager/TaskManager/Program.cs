@@ -6,15 +6,15 @@ using System.IO;//readlines
 class Program
 {
     static void Main(string[] args) { 
-        string mode;
+        string mode = "";
         bool runProgram = true;
         bool backToMain = true;
-        string selectedTask;
-        List<string> modifiedTask;
+        string selectedTask = "";
+        List<string> modifiedTask = new List<string>();
         do {
             runProgram = true;
             backToMain = true;
-            string choice;
+            string choice = "";
             Console.Write("Please select Mode (Admin or User) or END to exit Program\n");
             mode = Console.ReadLine();
             string textFile = "records.txt";
@@ -228,10 +228,10 @@ class Program
     }
     static List<string>  editSelectedTask ( List<string> data, string type) {
         bool save = false;
-        string change;
-        string addNote;
+        string change = "";
+        string addNote = "";
         string note = " "+ data[2] + ": ";
-        string letsSave;
+        string letsSave = "";
       while(!save) {
         if(type == "Task") {
             Console.Write(data[3] + "\n Have you finished this task? Yes or No");
@@ -330,7 +330,7 @@ class Program
         return result;
     } 
     static string selectUser(List<string> userList) {
-        string choice;
+        string choice ="";
         Console.Write("Who Are you?\n");
         for (int i = 0; i < userList.Count; i ++) {
             Console.Write("Press " +  (i+1) + " for "+ userList[i] + "\n");
