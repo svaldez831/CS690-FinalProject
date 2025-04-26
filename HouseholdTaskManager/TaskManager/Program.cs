@@ -127,41 +127,41 @@ class Program
         string placeHolderNote = "Notes ";
         result.Add(placeHolderNote);
 
-        Console.WriteLine("Confirm the entry information");
+        Console.WriteLine("\nConfirm the entry information");
         for(int i = 0;i < result.Count; i++) {
             if(i == 0) {
-                Console.Write("ID: " + result[i]);
+                Console.WriteLine("ID: " + result[i]);
             }
             else if( i == 1) {
-                Console.Write("Priority Type: " + result[i]);
+                Console.WriteLine("Priority Type: " + result[i]);
             }
             else if( i == 2) {
-                Console.Write("Assigned To: " + result[i]);
+                Console.WriteLine("Assigned To: " + result[i]);
             }
             else if( i == 3) {
-                Console.Write("Name: " + result[i]);
+                Console.WriteLine("Name: " + result[i]);
             }
             else if( i == 4) {
-                Console.Write("Date Created: " + result[i]);
+                Console.WriteLine("Date Created: " + result[i]);
             }
             else if( i == 5) {
-                Console.Write("Date Modified: " + result[i]);
+                Console.WriteLine("Date Modified: " + result[i]);
             }
             else if( i == 6) {
-                Console.Write("Due Date: " + result[i]);
+                Console.WriteLine("Due Date: " + result[i]);
             }
             else if( i == 7) {
-                Console.Write("Task Completed: " + result[i]);
+                Console.WriteLine("Task Completed: " + result[i]);
             }
             else if( i == 8) {
-                Console.Write("Instructions: " + result[i]);
+                Console.WriteLine("Instructions: " + result[i]);
             }
             else if( i == 9) {
-                Console.Write("Notes: " + result[i]);
+                Console.WriteLine("Notes: " + result[i]);
             }
         }
 
-        Console.WriteLine("Is the information Correct Y or N");
+        Console.WriteLine("\nIs the information Correct Y or N");
         string choice = Console.ReadLine();
 
         if (choice == "Y") {
@@ -192,7 +192,6 @@ class Program
 
             if(!users.Contains(columns[2])) {
                 users.Add(columns[2]);
-                Console.Write("User: " + columns[2]);
             }
         }
 
