@@ -17,8 +17,8 @@ class Program
             string choice;
             Console.Write("Please select Mode (Admin or User) or END to exit Program\n");
             mode = Console.ReadLine();
-            List<string> users = new List<string> { "Sam", "JohnCena", "Dom" };
             string textFile = "records.txt";
+            List<string> users = generateUsers(textFile);
             var data = readCsvTo2Dlist(textFile);
             var bills = extractBills(data);
             var tasks = extractTasks(data);
@@ -84,6 +84,7 @@ class Program
                     }
                     else if (adminLogin(choice)){
                         Console.Write("WELCOME ADMIN\n");
+                        addNewPriorities(textFile);
                     }
                     else {
                         Console.Write("Enter a Correct Option Try Again\n");
@@ -97,7 +98,84 @@ class Program
 
         } while(runProgram);
     }
+    static void addNewPriorities(string textFile) {
+        List<string> result = new List<string>();
+        string newID = DateTime.Now.Ticks.ToString();
+        result.Add(newID);
+        Console.Write("Add a new Priority  \n");
+        Console.Write("Is this a new Task or Bill. \n");
+        string priorityType = Console.ReadLine();
+        result.Add(priorityType);
+        Console.Write("Who shall we assign this to? Type Name: \n");
+        string assignee = Console.ReadLine();
+        result.Add(assignee);
+        Console.Write("What is the name of this " + priorityType +"\n");
+        string priorityName = Console.ReadLine();
+        result.Add(priorityName);
+        string dateCreated = DateTime.Now.ToString("dd-MM-yyyy");
+        string dateModified = DateTime.Now.ToString("dd-MM-yyyy");
+        result.Add(dateCreated);
+        result.Add(dateModified);
+        Console.Write("When is this due? Enter in dd-MM-YYYY format.\nExample: " + DateTime.Now.ToString("dd-MM-yyyy") +" dd = day, MM = Month, yyyy = Year\n");
+        string dueDate = Console.ReadLine();
+        result.Add(dueDate);
+        string completed = "false";
+        result.Add(completed);
+        Console.Write("Add additonal Instructions " +priorityType+ "\n");
+        string addInstructions = Console.ReadLine();
+        result.Add(addInstructions);
+        string placeHolderNote = "Notes ";
+        result.Add(placeHolderNote);
 
+        Console.WriteLine("Confirm the entry information");
+        for(int i = 0;i < result.Count; i++) {
+            if(i == 0) {
+                Console.Write("ID: " + result[i]);
+            }
+            else if( i == 1) {
+                Console.Write("Priority Type: " + result[i]);
+            }
+            else if( i == 2) {
+                Console.Write("Assigned To: " + result[i]);
+            }
+            else if( i == 3) {
+                Console.Write("Name: " + result[i]);
+            }
+            else if( i == 4) {
+                Console.Write("Date Created: " + result[i]);
+            }
+            else if( i == 5) {
+                Console.Write("Date Modified: " + result[i]);
+            }
+            else if( i == 6) {
+                Console.Write("Due Date: " + result[i]);
+            }
+            else if( i == 7) {
+                Console.Write("Task Completed: " + result[i]);
+            }
+            else if( i == 8) {
+                Console.Write("Instructions: " + result[i]);
+            }
+            else if( i == 9) {
+                Console.Write("Notes: " + result[i]);
+            }
+        }
+
+        Console.WriteLine("Is the information Correct Y or N");
+        string choice = Console.ReadLine();
+
+        if (choice == "Y") {
+            Console.WriteLine("Entry Information was saved to Textfile!");
+            using (StreamWriter sw = new StreamWriter(textFile, append: true)) {
+                sw.WriteLine(string.Join(",", result));
+            }
+        }
+        else {
+            Console.WriteLine("Entry was not save! Exiting...");
+        }
+
+
+    }
 
     static bool adminLogin(string login) {
         if(login == "admin") {
@@ -106,6 +184,21 @@ class Program
             return false;
         }
     }
+    static List<string> generateUsers(string textFile) {
+        List<string> lines = File.ReadLines("records.txt").ToList();
+        List<string> users = new List<string>();
+        for(int i = 0; i < lines.Count; i++) {
+            string[] columns = lines[i].Split(',');
+
+            if(!users.Contains(columns[2])) {
+                users.Add(columns[2]);
+                Console.Write("User: " + columns[2]);
+            }
+        }
+
+        return users;
+    }
+
     static void saveToFile(List<string> data ) {
         List<string> lines = File.ReadLines("records.txt").ToList();
        
@@ -244,11 +337,8 @@ class Program
             Console.Write("Press " +  (i+1) + " for "+ userList[i] + "\n");
         }
         int user = Int32.Parse(Console.ReadLine());
-        if(user == 1) {
-            choice = userList[0];
-        } 
-        else if(user == 2) {
-            choice = userList[1];
+        if(user >= 1 && user <= userList.Count) {
+            choice = userList[user-1];
         } 
         else {
             choice = userList[2];
