@@ -374,4 +374,30 @@ class Program
 
 }
 
+class User {
+    public string Name { get; private set;}
+
+    public User(string name) {
+        Name = name;
+    }
+
+    static string selectUser(List<string> userList) {
+        
+        Console.Write("Who Are you?\n");
+        for (int i = 0; i < userList.Count; i ++) {
+            Console.Write("Press " +  (i+1) + " for "+ userList[i] + "\n");
+        }
+        int user = Int32.Parse(Console.ReadLine());
+        if(user >= 1 && user <= userList.Count) {
+            choice = userList[user-1];
+        } 
+        else {
+            choice = userList[2];
+        }
+
+        return choice;
+    }
+
+}
+
 
