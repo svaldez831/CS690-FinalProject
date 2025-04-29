@@ -1,4 +1,4 @@
-﻿ namespace TaskManager;
+﻿namespace TaskManager;
 using System;//writeline
 using System.Collections.Generic;//collections
 using System.IO;//readlines
@@ -21,15 +21,15 @@ class Program
             string textFile = "records.txt";
             List<string> users = FileHelper.GenerateUsers(textFile);
             var data = FileHelper.ReadCsvTo2Dlist(textFile);
-            var bills = extractBills(data);
-            var tasks = extractTasks(data);
+            var bills = RecordFilter.ExtractBills(data);
+            var tasks = RecordFilter.ExtractTasks(data);
        
             if(mode == "User") {
                 string user = selectUser(users);
                 do {
                     Console.Write("\n Welcome Back " + user +  "\n \n ");
-                    var billsByUser = extractByUser(bills, user);
-                    var tasksByUSer = extractByUser(tasks, user);
+                    var billsByUser = RecordFilter.ExtractByUser(bills, user);
+                    var tasksByUSer = RecordFilter.ExtractByUser(tasks, user);
                     Console.Write("You have " + tasksByUSer.Count + " task assigned to you. And " + billsByUser.Count + " upcoming bill you have to pay.\n\n");
                     Console.Write("Enter [1] to see Tasks or  [2] for Upcoming Bills. or 'Back' to go back to \n");
                     choice = Console.ReadLine();
@@ -48,8 +48,8 @@ class Program
                                 List<string> modifiedRow = new List<string>( editSelectedTask( tasksByUSer[(selectedTask1 - 1)], "Task"));
                                 //modifiedTask = editSelectedTask(row);
                                 data = FileHelper.ReadCsvTo2Dlist(textFile);
-                                tasks = extractTasks(data);
-                                tasksByUSer = extractByUser(tasks, user);
+                                tasks = RecordFilter.ExtractTasks(data);
+                                tasksByUSer = RecordFilter.ExtractByUser(tasks, user);
                             }
             
                     } 
@@ -65,8 +65,8 @@ class Program
                                 List<string> modifiedRow = new List<string>( editSelectedTask( billsByUser[(selectedTask1 - 1)], "Bill"));
                                 //modifiedTask = editSelectedTask(row);
                                 data = FileHelper.ReadCsvTo2Dlist(textFile);
-                                bills = extractTasks(data);
-                                billsByUser = extractByUser(bills, user);
+                                bills = RecordFilter.ExtractTasks(data);
+                                billsByUser = RecordFilter.ExtractByUser(bills, user);
                             }
                        
                         }
@@ -247,50 +247,12 @@ class Program
         return data;
     }
 
-    static List<List<string>> extractBills (List<List<string>> data) {
-        var result = new List<List<string>>();
-        string keyword = "Bill";
-        foreach (var row in data) {
-            if (row.Count > 1 && row[1] == keyword) {
-                result.Add(new List<string>(row));
-                
-            }
-        }
+ 
 
-        
-        return result;
 
-    } 
-
-        static List<List<string>> extractByUser (List<List<string>> data, string user) {
-        var result = new List<List<string>>();
-        string keyword = user;
-        
-        foreach (var row in data) {
-            if (row.Count > 1 && row[2] == keyword) {
-                result.Add(new List<string>(row));
-                
-            }
-        }
-
-        
-        return result;
-
-    } 
 
     
-    static List<List<string>> extractTasks (List<List<string>> data) {
-        var result = new List<List<string>>();
-        string keyword = "Task";
-        foreach (var row in data) {
-            if (row.Count > 1 && row[1] == keyword) {
-                result.Add(new List<string>(row));
-            }
-        }
 
-        
-        return result;
-    } 
     static string selectUser(List<string> userList) {
         string choice ="";
         Console.Write("Who Are you?\n");
