@@ -1,7 +1,8 @@
-1,Task,Dom,Take out the Trash,22-04-2025,25-04-2025,25-04-2025,true,"Please take out of the trash from each room including the restrooms",Notes
+1,Task,Dom,Take out the Trash,22-04-2025,26-04-2025,26-04-2025,true,"Please take out of the trash from each room including the restrooms",Notes Dom: Took Trash out, but ran out of garbage bags. Please buy more!
 2,Task,JohnCena,Rake Leaves,22-04-2025,23-04-2025,22-04-2025,false,"Rake Leaves and empty in trash bin",Notes
 3,Task,Sam,Clean cars,22-04-2025,25-04-2025,22-04-2025,false,"Only JohnCena's car",Notes
 4,Bill,Dom,Pay Water Bill Today!,22-04-2025,26-04-2025,26-04-2025,true,"Pay Before 5:00 pm",Notes
 5,Bill,Goldberg,Pay the Garbage Bill!,22-04-2025,26-04-2025,26-04-2025,true,"Pay Before 5:00 pm",Notes
 638812510415776839,Bill,Jimmy,Pay Hospital Bills.,26-04-2025,26-04-2025,28-04-2025,false,Use the green bank card.,Notes 
 638812513661425343,Task,JohnCena,Wash Dishes.,26-04-2025,26-04-2025,28-04-2025,false,None.,Notes 
+638812555262280090,Bill,Randy,Pay Cellphone. ,26-04-2025,26-04-2025,04-05-2025,false,Pay with Mastercard please.,Notes 
