@@ -1,7 +1,8 @@
-﻿namespace TaskManager;
+﻿ namespace TaskManager;
 using System;//writeline
 using System.Collections.Generic;//collections
 using System.IO;//readlines
+using Spectre.Console;
 
 class Program
 {
@@ -18,8 +19,8 @@ class Program
             Console.Write("Please select Mode (Admin or User) or END to exit Program\n");
             mode = Console.ReadLine();
             string textFile = "records.txt";
-            List<string> users = generateUsers(textFile);
-            var data = readCsvTo2Dlist(textFile);
+            List<string> users = FileHelper.GenerateUsers(textFile);
+            var data = FileHelper.ReadCsvTo2Dlist(textFile);
             var bills = extractBills(data);
             var tasks = extractTasks(data);
        
@@ -46,7 +47,7 @@ class Program
                                 int selectedTask1 = int.Parse(selectedTask);
                                 List<string> modifiedRow = new List<string>( editSelectedTask( tasksByUSer[(selectedTask1 - 1)], "Task"));
                                 //modifiedTask = editSelectedTask(row);
-                                data = readCsvTo2Dlist(textFile);
+                                data = FileHelper.ReadCsvTo2Dlist(textFile);
                                 tasks = extractTasks(data);
                                 tasksByUSer = extractByUser(tasks, user);
                             }
@@ -63,7 +64,7 @@ class Program
                                 int selectedTask1 = int.Parse(selectedTask);
                                 List<string> modifiedRow = new List<string>( editSelectedTask( billsByUser[(selectedTask1 - 1)], "Bill"));
                                 //modifiedTask = editSelectedTask(row);
-                                data = readCsvTo2Dlist(textFile);
+                                data = FileHelper.ReadCsvTo2Dlist(textFile);
                                 bills = extractTasks(data);
                                 billsByUser = extractByUser(bills, user);
                             }
@@ -184,48 +185,9 @@ class Program
             return false;
         }
     }
-    static List<string> generateUsers(string textFile) {
-        List<string> lines = File.ReadLines("records.txt").ToList();
-        List<string> users = new List<string>();
-        for(int i = 0; i < lines.Count; i++) {
-            string[] columns = lines[i].Split(',');
 
-            if(!users.Contains(columns[2])) {
-                users.Add(columns[2]);
-            }
-        }
 
-        return users;
-    }
 
-    static void saveToFile(List<string> data ) {
-        List<string> lines = File.ReadLines("records.txt").ToList();
-       
-       for(int i = 0; i < lines.Count; i++) {
-        string[] columns = lines[i].Split(',');
-
-        if(columns[0].Trim() == data[0].Trim()) {
-            columns[1] = data[1];
-            columns[2] = data[2];
-            columns[3] = data[3];
-            columns[4] = data[4];
-            columns[5] = data[5];
-            columns[6] = data[6];
-            columns[7] = data[7];
-            columns[8] = data[8];
-            columns[9] = data[9];
-
-            lines[i] = string.Join(",", columns);
-            break;
-        }
-       
-       }
-        
-
-       
-        File.WriteAllLines("records.txt",lines);
-
-    }
     static List<string>  editSelectedTask ( List<string> data, string type) {
         bool save = false;
         string change = "";
@@ -275,7 +237,7 @@ class Program
 
         if(letsSave == "Yes") {
             save = true;
-            saveToFile(data);
+            FileHelper.SaveToFile(data);
         }
 
       }
@@ -361,43 +323,7 @@ class Program
         Console.Write("\n");
     }
 
-    static List<List<string>> readCsvTo2Dlist(string textFile ){
-        var result = new List<List<string>>();
-        
-        foreach(var line in File.ReadLines(textFile)) {
-            var values = line.Split(',');
-            result.Add(new List<string>(values));
-        }
-        return result;
-    }
 
 
 }
-
-class User {
-    public string Name { get; private set;}
-
-    public User(string name) {
-        Name = name;
-    }
-
-    static string selectUser(List<string> userList) {
-        
-        Console.Write("Who Are you?\n");
-        for (int i = 0; i < userList.Count; i ++) {
-            Console.Write("Press " +  (i+1) + " for "+ userList[i] + "\n");
-        }
-        int user = Int32.Parse(Console.ReadLine());
-        if(user >= 1 && user <= userList.Count) {
-            choice = userList[user-1];
-        } 
-        else {
-            choice = userList[2];
-        }
-
-        return choice;
-    }
-
-}
-
 
