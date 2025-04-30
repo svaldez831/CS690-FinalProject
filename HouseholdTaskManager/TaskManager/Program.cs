@@ -7,6 +7,9 @@ using Spectre.Console;
 class Program
 {
     static void Main(string[] args) { 
+        
+
+
         string mode = "";
         bool runProgram = true;
         bool backToMain = true;
@@ -22,6 +25,11 @@ class Program
             List<string> users = FileHelper.GenerateUsers(textFile);
             var tasks = FileHelper.ReadTasksFromFile(textFile);
             var bill = FileHelper.ReadBillsFromFile(textFile);
+            //var aliceTask = RecordFilter.ExtractTaskByUser(tasks,"Dom");
+            //Console.WriteLine($"Found{aliceTask.Count} tasks(s) for Dom");
+
+            //var aliceBill= RecordFilter.ExtractBillByUser(bill,"Dom");
+            //Console.WriteLine($"Found{aliceBill.Count} bills(s) for Dom");
 
             Console.WriteLine($"Found {tasks.Count} task(s).");
             Console.WriteLine($"Found {bill.Count} bill(s).");
