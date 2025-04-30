@@ -22,9 +22,14 @@ class Program
             Console.Write("Please select Mode (Admin or User) or END to exit Program\n");
             mode = Console.ReadLine();
             string textFile = "records.txt";
-            List<string> users = FileHelper.GenerateUsers(textFile);
+            //List<string> users = FileHelper.GenerateUsers(textFile);
             var tasks = FileHelper.ReadTasksFromFile(textFile);
             var bill = FileHelper.ReadBillsFromFile(textFile);
+            var users = FileHelper.GenerateUsers2(tasks,bill);
+            Console.WriteLine("Users found: ");
+            foreach(var user2 in users) {
+                Console.WriteLine(user2);
+            }
             //var aliceTask = RecordFilter.ExtractTaskByUser(tasks,"Dom");
             //Console.WriteLine($"Found{aliceTask.Count} tasks(s) for Dom");
 

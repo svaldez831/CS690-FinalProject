@@ -109,6 +109,24 @@ public static class FileHelper {
         return users;
     }
 
+    public static List<string> GenerateUsers2(List<Task> tasks, List<Bill> bills) {
+        List<string> users = new List<string>();
+
+        foreach (Task task in tasks) {
+            if(!users.Contains(task.Assignee)) {
+                users.Add(task.Assignee);
+            }
+        }
+
+        foreach (Bill bill in bills) {
+            if(!users.Contains(bill.Assignee)) {
+                users.Add(bill.Assignee);
+            }
+        }
+
+        return users;
+    }
+
     public  static void SaveToFile(List<string> data ) {
         List<string> lines = File.ReadLines("records.txt").ToList();
     
