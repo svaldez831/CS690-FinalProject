@@ -7,6 +7,54 @@ namespace TaskManager;
 
 public static class FileHelper {
 
+    public static List<Bill> ReadBillsFromFile(string textFile){
+        var bills = new List<Bill>();
+        foreach (var row in File.ReadLines(textFile)) {
+            var cols = row.Split(',');
+            if(cols[1] == "Bill") {
+                var bill = new Bill(cols[2], cols[3], cols[6],cols[8]);
+                bill.Id = cols[0];
+                bill.DateCreated = cols[4];
+                bill.DateModified = cols[5];
+                bill.DueDate = cols[6];
+                bill.Paid = bool.TryParse(cols[7], out var paid) && paid;
+                bill.Instructions = cols[8];
+                bill.Notes = cols[9];
+                bills.Add(bill);
+            }
+        }
+        return bills;
+    }
+
+
+    public static List<Task> ReadTasksFromFile(string textFile){
+        var tasks = new List<Task>();
+        foreach (var row in File.ReadLines(textFile)) {
+            var cols = row.Split(',');
+            if(cols[1] == "Task") {
+                var task = new Task(cols[2], cols[3], cols[6],cols[8]);
+                task.Id = cols[0];
+                task.DateCreated = cols[4];
+                task.DateModified = cols[5];
+                task.DueDate = cols[6];
+                task.Completed = bool.TryParse(cols[7], out var complete) && complete;
+                task.Instructions = cols[8];
+                task.Notes = cols[9];
+                tasks.Add(task);
+            }
+        }
+        return tasks;
+    }
+
+    static void SaveBillToFile(List<Bill> bills) {
+        string textFile = "records.txt";
+        using (StreamWriter sw = new StreamWriter(textFile, append: true)) {
+            foreach(var bill in bills) {
+                sw.WriteLine($"{bill.Id}, {bill.Type},{bill.Assignee},{bill.Name},{bill.DateCreated},{bill.DateModified},{bill.DueDate},{bill.Paid},{bill.Instructions},{bill.Notes}");
+            }
+        }
+    }
+
     public static Task ParseTask(List<string> cols) {
 
         if (cols.Count < 10 || cols[1] != "Task") 
@@ -15,9 +63,7 @@ public static class FileHelper {
         var tempTask = new Task(cols[2], cols[3], cols[6], cols[8]);
         tempTask.Id = cols[0];
         tempTask.DateCreated = cols[4];
-        tempTask.DateModified = cols[4];
-        tempTask.Assignee =cols[4];
-        tempTask.Name = cols[4];
+        tempTask.DateModified = cols[5];
         tempTask.DueDate = cols[6];
         tempTask.Completed = bool.TryParse(cols[7], out var completed) && completed;
         tempTask.Instructions = cols[8];
@@ -36,6 +82,7 @@ public static class FileHelper {
         }
         return tempTasks;
     }
+
 
 
 

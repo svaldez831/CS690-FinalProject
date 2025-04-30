@@ -20,55 +20,55 @@ class Program
             mode = Console.ReadLine();
             string textFile = "records.txt";
             List<string> users = FileHelper.GenerateUsers(textFile);
-            var data = FileHelper.ReadCsvTo2Dlist(textFile);
-            var bills = RecordFilter.ExtractBills(data);
-            var taskRows = RecordFilter.ExtractTasks(data);
-            var tasks = RecordFilter.ExtractTasks(taskRows);
-       
+            var tasks = FileHelper.ReadTasksFromFile(textFile);
+            var bill = FileHelper.ReadBillsFromFile(textFile);
+
+            Console.WriteLine($"Found {tasks.Count} task(s).");
+            Console.WriteLine($"Found {bill.Count} bill(s).");
             if(mode == "User") {
                 string user = selectUser(users);
                 do {
                     Console.Write("\n Welcome Back " + user +  "\n \n ");
-                    var billsByUser = RecordFilter.ExtractByUser(bills, user);
-                    var tasksByUSer = RecordFilter.ExtractByUser(tasks, user);
-                    Console.Write("You have " + tasksByUSer.Count + " task assigned to you. And " + billsByUser.Count + " upcoming bill you have to pay.\n\n");
+                    //var billsByUser = RecordFilter.ExtractByUser(bills, user);
+                    // tasksByUSer = RecordFilter.ExtractByUser(tasks, user);
+                    //Console.Write("You have " + tasksByUSer.Count + " task assigned to you. And " + billsByUser.Count + " upcoming bill you have to pay.\n\n");
                     Console.Write("Enter [1] to see Tasks or  [2] for Upcoming Bills. or 'Back' to go back to \n");
                     choice = Console.ReadLine();
                     if(choice == "Back") {
                         backToMain = false;
                     } 
                     else if(choice == "1") {
-                            if(tasksByUSer.Count == 0) {
-                                Console.Write("0 Tasks are assigned to you\n");
-                            } 
-                            else {
-                                printAllRecordsSimple(tasksByUSer);
-                                Console.Write("\n Please Choose a task to edit further \n");
-                                selectedTask = Console.ReadLine();
-                                int selectedTask1 = int.Parse(selectedTask);
-                                List<string> modifiedRow = new List<string>( editSelectedTask( tasksByUSer[(selectedTask1 - 1)], "Task"));
-                                //modifiedTask = editSelectedTask(row);
-                                data = FileHelper.ReadCsvTo2Dlist(textFile);
-                                tasks = RecordFilter.ExtractTasks(data);
-                                tasksByUSer = RecordFilter.ExtractByUser(tasks, user);
-                            }
+                    //         if(tasksByUSer.Count == 0) {
+                    //             Console.Write("0 Tasks are assigned to you\n");
+                    //         } 
+                    //         else {
+                    //             //printAllRecordsSimple(tasksByUSer);
+                    //             Console.Write("\n Please Choose a task to edit further \n");
+                    //             selectedTask = Console.ReadLine();
+                    //             int selectedTask1 = int.Parse(selectedTask);
+                    //             //List<string> modifiedRow = new List<string>( editSelectedTask( tasksByUSer[(selectedTask1 - 1)], "Task"));
+                    //             //modifiedTask = editSelectedTask(row);
+                    //             data = FileHelper.ReadCsvTo2Dlist(textFile);
+                    //             tasks = RecordFilter.ExtractTasks(data);
+                    //             //tasksByUSer = RecordFilter.ExtractByUser(tasks, user);
+                    //         }
             
                     } 
                     else if (choice == "2"){
-                            if(billsByUser.Count == 0) {
-                                Console.Write("0 Bills are assigned to you");
-                            } 
-                            else {
-                                printAllRecordsSimple(billsByUser);
-                                Console.Write("\n Please Choose a Bill to edit further \n");
-                                selectedTask = Console.ReadLine();
-                                int selectedTask1 = int.Parse(selectedTask);
-                                List<string> modifiedRow = new List<string>( editSelectedTask( billsByUser[(selectedTask1 - 1)], "Bill"));
-                                //modifiedTask = editSelectedTask(row);
-                                data = FileHelper.ReadCsvTo2Dlist(textFile);
-                                bills = RecordFilter.ExtractTasks(data);
-                                billsByUser = RecordFilter.ExtractByUser(bills, user);
-                            }
+                            // if(billsByUser.Count == 0) {
+                            //     Console.Write("0 Bills are assigned to you");
+                            // } 
+                            // else {
+                            //     printAllRecordsSimple(billsByUser);
+                            //     Console.Write("\n Please Choose a Bill to edit further \n");
+                            //     selectedTask = Console.ReadLine();
+                            //     int selectedTask1 = int.Parse(selectedTask);
+                            //     List<string> modifiedRow = new List<string>( editSelectedTask( billsByUser[(selectedTask1 - 1)], "Bill"));
+                            //     //modifiedTask = editSelectedTask(row);
+                            //     data = FileHelper.ReadCsvTo2Dlist(textFile);
+                            //     bills = RecordFilter.ExtractTasks(data);
+                            //     billsByUser = RecordFilter.ExtractByUser(bills, user);
+                            // }
                        
                         }
                     else {
