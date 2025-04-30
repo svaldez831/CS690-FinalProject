@@ -7,7 +7,16 @@ using Spectre.Console;
 class Program
 {
     static void Main(string[] args) { 
-        
+        var updateTask = new Task("Alice", "Clean the Toilets", "1-05-2025", "Fix ASAP" );
+        updateTask.Id = "638812555262280090";
+        updateTask.DateCreated = "30-04-2025";
+        updateTask.DateModified = DateTime.Now.ToString("dd-MM-yyyy");
+        updateTask.Completed = true;
+        updateTask.Notes = updateTask.Name + " Cleaned all 3 toilets";
+        var itemsToUpdate = new List<object> {updateTask};
+        FileHelper.SaveToFile2(itemsToUpdate);
+
+        Console.WriteLine("TaskUpdated");
 
 
         string mode = "";

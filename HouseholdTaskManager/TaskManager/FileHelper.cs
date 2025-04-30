@@ -127,6 +127,58 @@ public static class FileHelper {
         return users;
     }
 
+
+    public static void SaveToFile2(List<object> items) {
+        string filePath = "records.txt";
+        List<string> rows = File.ReadAllLines(filePath).ToList();
+
+        foreach (var item in items) {
+            string itemId = "";
+            string itemType = "";
+            string[] newCols = new string[10];
+
+            if(item is Task task) {
+                itemId = task.Id;
+                itemType = "Task";
+                newCols[0] = task.Id;
+                newCols[1] = task.Type;
+                newCols[2] = task.Assignee;
+                newCols[3] = task.Name;
+                newCols[4] = task.DateCreated;
+                newCols[5] = task.DateModified;
+                newCols[6] = task.DueDate;
+                newCols[7] = task.Completed.ToString();
+                newCols[8] = task.Instructions;
+                newCols[9] = task.Notes;
+            }
+             else if(item is Bill bill) {
+                itemId = bill.Id;
+                itemType = "Bill";
+                newCols[0] = bill.Id;
+                newCols[1] = bill.Type;
+                newCols[2] = bill.Assignee;
+                newCols[3] = bill.Name;
+                newCols[4] = bill.DateCreated;
+                newCols[5] = bill.DateModified;
+                newCols[6] = bill.DueDate;
+                newCols[7] = bill.Paid.ToString();
+                newCols[8] = bill.Instructions;
+                newCols[9] = bill.Notes;
+            }
+            for(int i = 0; i < rows.Count; i++) {
+                string[] columns = rows[i].Split(',');
+                if(columns[0].Trim() == itemId) {
+                    rows[i] = string.Join(",", newCols);
+                    break;
+                }
+            }
+        }
+
+        File.WriteAllLines(filePath, rows);
+    }
+
+
+
     public  static void SaveToFile(List<string> data ) {
         List<string> lines = File.ReadLines("records.txt").ToList();
     
