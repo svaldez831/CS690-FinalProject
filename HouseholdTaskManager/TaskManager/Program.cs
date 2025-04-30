@@ -22,7 +22,8 @@ class Program
             List<string> users = FileHelper.GenerateUsers(textFile);
             var data = FileHelper.ReadCsvTo2Dlist(textFile);
             var bills = RecordFilter.ExtractBills(data);
-            var tasks = RecordFilter.ExtractTasks(data);
+            var taskRows = RecordFilter.ExtractTasks(data);
+            var tasks = RecordFilter.ExtractTasks(taskRows);
        
             if(mode == "User") {
                 string user = selectUser(users);

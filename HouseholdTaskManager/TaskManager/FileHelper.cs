@@ -6,6 +6,39 @@ using System.IO;
 namespace TaskManager;
 
 public static class FileHelper {
+
+    public static Task ParseTask(List<string> cols) {
+
+        if (cols.Count < 10 || cols[1] != "Task") 
+            return null;
+
+        var tempTask = new Task(cols[2], cols[3], cols[6], cols[8]);
+        tempTask.Id = cols[0];
+        tempTask.DateCreated = cols[4];
+        tempTask.DateModified = cols[4];
+        tempTask.Assignee =cols[4];
+        tempTask.Name = cols[4];
+        tempTask.DueDate = cols[6];
+        tempTask.Completed = bool.TryParse(cols[7], out var completed) && completed;
+        tempTask.Instructions = cols[8];
+        tempTask.Notes = cols[9];
+
+        return tempTask;
+    }
+
+    public static List<Task> ParseTasks(List<List<string>> rows) {
+        var tempTasks = new List<Task>();
+        foreach (var row in rows) {
+            var task = ParseTask(row);
+            if(task != null) {
+                tempTasks.Add(task);
+            }
+        }
+        return tempTasks;
+    }
+
+
+
     public static List<List<string>> ReadCsvTo2Dlist(string textFile ){
         var result = new List<List<string>>();
     

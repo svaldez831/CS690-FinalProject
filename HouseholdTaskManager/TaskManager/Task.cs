@@ -25,7 +25,7 @@ public class Task {
         Type = "Task";
     }
 
-    public string toDisplayString() {
+    public string ToDisplayString() {
         return $"| Assigned To: {Assignee} | Task ID: {Id} | Task Name: {Name} | Due: {DueDate}  | Modified: {DateModified} | Task Completed: {Completed} ";
     }
 
