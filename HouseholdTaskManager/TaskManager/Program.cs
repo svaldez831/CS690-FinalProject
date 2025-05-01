@@ -26,8 +26,12 @@ class Program
                 .AddChoices(userSelect)
             );
             if(selectionOption == "Admin") {
-                Console.Clear();
-                Console.WriteLine("Admin ModeActivated!");
+                
+                Console.WriteLine("Enter Admin username: ");
+                string adminName = Console.ReadLine();
+                Admin admin = new Admin(adminName);
+                admin.ShowAdminMenu();
+
             }
             else if( selectionOption == "Exit") {
                 isRunning = false;
