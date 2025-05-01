@@ -34,7 +34,7 @@ class Program
                 AnsiConsole.MarkupLine($"[bold blue] Welcome Back {selectionOption}[/]" );
                 var userSelectedBills= RecordFilter.ExtractBillByUser(bill,selectionOption);
                 var userSelectedTasks = RecordFilter.ExtractTaskByUser(tasks,selectionOption);
-                Console.Write($"Found ({userSelectedTasks.Count}) Task(s) for {selectionOption} ,");
+                Console.Write($"\nFound ({userSelectedTasks.Count}) Task(s) for {selectionOption} ,");
                 Console.WriteLine($"Found ({userSelectedBills.Count}) bills(s) for {selectionOption}");    
 
                 var option = AnsiConsole.Prompt(
@@ -72,9 +72,29 @@ class Program
                             Console.WriteLine("Add your Note: ");
                             taskSelected.Notes = Console.ReadLine();
                             Console.WriteLine($"Task '{taskSelected.Name}' has been Marked as Complete as of {taskSelected.DateModified}");
+                            
+                            var saveChanges = AnsiConsole.Prompt(
+                                new SelectionPrompt<string>()
+                                .Title("Save Changes?")
+                                .PageSize(10)
+                                .AddChoices("Yes", "No")
+                            );
+
+                            if(saveChanges == "Yes") {
+                                var taskToSave = new List<object>{taskSelected};
+                                FileHelper.SaveToFile2(taskToSave);                                
+                                Console.WriteLine($"Changes to Task: '{taskSelected.Name}' has been Saved Successfully");
+                            } 
+                            else{
+                                Console.WriteLine($"No Changes to Task: '{taskSelected.Name}' were made");
+                            }
+                        
                         }
                         else {
                             Console.WriteLine($"Task '{taskSelected.Name}' has been Marked as Complete as of {taskSelected.DateModified}");
+                            var taskToSave = new List<object>{taskSelected};
+                            FileHelper.SaveToFile2(taskToSave);                                
+                            Console.WriteLine($"Changes to Task: '{taskSelected.Name}' has been Saved Successfully");
                         }
 
                     }
@@ -111,9 +131,29 @@ class Program
                             Console.WriteLine("Add your Note: ");
                             billSelected.Notes = Console.ReadLine();
                             Console.WriteLine($"Bill '{billSelected.Name}' has been Marked as Payed as of {billSelected.DateModified}");
+
+                            var saveChanges = AnsiConsole.Prompt(
+                                new SelectionPrompt<string>()
+                                .Title("Save Changes?")
+                                .PageSize(10)
+                                .AddChoices("Yes", "No")
+                            );
+
+                            if(saveChanges == "Yes") {
+                                var billToSave = new List<object>{billSelected};
+                                FileHelper.SaveToFile2(billToSave);                                
+                                Console.WriteLine($"Changes to Bill '{billSelected.Name}' has been Saved Successfully");
+                            } 
+                            else{
+                                Console.WriteLine($"No Changes to Bill '{billSelected.Name}' were made");
+                            }
+
                         }
                         else {
                             Console.WriteLine($"Bill '{billSelected.Name}' has been Marked as Payed as of {billSelected.DateModified}");
+                            var billToSave = new List<object>{billSelected};
+                            FileHelper.SaveToFile2(billToSave);                                
+                            Console.WriteLine($"Changes to Bill '{billSelected.Name}' has been Saved Successfully");
                         }
 
                     }
@@ -326,105 +366,6 @@ class Program
         } else {
             return false;
         }
-    }
-
-
-
-    static List<string>  editSelectedTask ( List<string> data, string type) {
-        bool save = false;
-        string change = "";
-        string addNote = "";
-        string note = " "+ data[2] + ": ";
-        string letsSave = "";
-      while(!save) {
-        if(type == "Task") {
-            Console.Write(data[3] + "\n Have you finished this task? Yes or No");
-        }
-        else {
-            Console.Write(data[3] + "\n Have you Paid this Bill? Yes or No");
-        }
-        
-        change = Console.ReadLine();
-        if(change == "Yes") {
-
-            string lastModified = DateTime.Now.ToString("dd-MM-yyyy");
-            if(type == "Task") {
-                Console.Write("Task Changed to Complete, Last Modified:"+ lastModified + "\n");
-            } 
-            else{
-                Console.Write("Bill Paid, Last Modified:"+ lastModified + "\n");
-
-            }
-            data[7] = "true";
-            data[5] =lastModified;
-            data[6] = lastModified;
-        }
-        Console.Write("Would you like to add a note? Start Typing if not type 'No' \n");
-        addNote = Console.ReadLine();
-
-        if(note == "No") {
-            data.Add(note + "No Note.");
-        }
-        else {
-            if(data.Count < 10) {
-                data.Add(note + addNote);
-            }
-            else{
-                data[9] += note + addNote;
-            }
-            
-        }
-        Console.Write("Would you like to save? Yes and Exit or Change Something else?\n");
-        letsSave = Console.ReadLine();
-
-        if(letsSave == "Yes") {
-            save = true;
-            FileHelper.SaveToFile(data);
-        }
-
-      }
-        //Console.WriteLine(string.Join(", ", data));
-
-        
-        return data;
-    }
-
- 
-
-
-
-    
-
-    static string selectUser(List<string> userList) {
-        string choice ="";
-        Console.Write("Who Are you?\n");
-        for (int i = 0; i < userList.Count; i ++) {
-            Console.Write("Press " +  (i+1) + " for "+ userList[i] + "\n");
-        }
-        int user = Int32.Parse(Console.ReadLine());
-        if(user >= 1 && user <= userList.Count) {
-            choice = userList[user-1];
-        } 
-        else {
-            choice = userList[2];
-        }
-
-        return choice;
-    }
-
-    static void printTasksByUser(string user) {
-            //foreach (var row in result) {
-            //Console.WriteLine(string.Join(" | ", row));
-        //}
-    }
-
-    static void printAllRecordsSimple(List<List<string>> data) {
-        int counter = 1;
-        foreach(var row in data) {
-            Console.WriteLine(counter +") "+ string.Join(" | ", row));
-            counter++;
-        }
-        Console.Write("\n");
     }
 
 

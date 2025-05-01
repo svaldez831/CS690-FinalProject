@@ -26,7 +26,7 @@ public class Bill {
     }
 
     public string ToDisplayString() {
-        return $"| Assigned To: {Assignee} | Bill ID: {Id} | Bill Name: {Name} | Due: {DueDate} | Modified: {DateModified} | Bill Paid: {Paid} ";
+        return $"| Bill Name: {Name} | Instructions: {Instructions} | Due: {DueDate} | Last Modified: {DateModified} | Bill Paid: {Paid} ";
     }
 
 
