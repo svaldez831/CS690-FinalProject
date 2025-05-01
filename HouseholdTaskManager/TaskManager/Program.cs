@@ -18,6 +18,7 @@ class Program
             var tasks = FileHelper.ReadTasksFromFile(textFile);
             var bill = FileHelper.ReadBillsFromFile(textFile);
             userSelect.Add("Admin");
+            userSelect.Add("Exit");
             var selectionOption = AnsiConsole.Prompt(
                 new SelectionPrompt<string>()
                 .Title("Please Select a User to Continue:")
@@ -28,9 +29,12 @@ class Program
                 Console.Clear();
                 Console.WriteLine("Admin ModeActivated!");
             }
+            else if( selectionOption == "Exit") {
+                isRunning = false;
+            }
             else {
                 Console.Clear();
-                Console.WriteLine("USer ModeActivated!");
+                Console.WriteLine("User ModeActivated!");
                 AnsiConsole.MarkupLine($"[bold blue] Welcome Back {selectionOption}[/]" );
                 var userSelectedBills= RecordFilter.ExtractBillByUser(bill,selectionOption);
                 var userSelectedTasks = RecordFilter.ExtractTaskByUser(tasks,selectionOption);
