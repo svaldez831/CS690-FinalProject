@@ -13,7 +13,7 @@ public static class AdminActions {
         Console.ReadKey();
     }
 
-        public static void ViewAllBills() {
+    public static void ViewAllBills() {
         Console.Clear();
         var bills = FileHelper.ReadBillsFromFile("records.txt");
         Console.WriteLine("== All Bills ==");
@@ -24,6 +24,17 @@ public static class AdminActions {
         Console.WriteLine("Press any key to continue...");
         Console.ReadKey();
     }
-
+    public static void ViewAllUsers() {
+        Console.Clear(); 
+        var users = FileHelper.GenerateUsers("records.txt");
+        Console.WriteLine("=== All Users ===");
+        foreach (var user in users) {
+            Console.WriteLine(user);
+        }
+        Console.WriteLine("Press any key to continue...");
+        Console.ReadKey();
+    }
     
+
+
 }

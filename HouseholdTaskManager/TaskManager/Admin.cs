@@ -26,7 +26,7 @@ public class Admin {
                     AdminActions.ViewAllBills();
                     break;
                 case "3":
-                    Console.WriteLine("Case3");
+                    AdminActions.ViewAllUsers();
                     break;
                 case "4":
                     Console.WriteLine("Case4");
