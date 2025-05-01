@@ -20,10 +20,10 @@ public class Admin {
 
             switch (Char.ToString(selectionOption[0])) {
                 case "1":
-                    Console.WriteLine("Case1");
+                    AdminActions.ViewAllTasks();
                     break;
                 case "2":
-                    Console.WriteLine("Case2");
+                    AdminActions.ViewAllBills();
                     break;
                 case "3":
                     Console.WriteLine("Case3");

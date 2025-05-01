@@ -29,6 +29,15 @@ public class Task {
         return $"| Task Name: {Name} | Description: {Instructions}  | Due: {DueDate}  | Last Modified: {DateModified} | Task Completed: {Completed} ";
     }
 
+    public string DisplayAllString() {
+        return $"| ID: {Id} |Task Name: {Name} | Description: {Instructions}  | Assigned To: {Assignee}| Due: {DueDate} | Date Created: {DateCreated} | Last Modified: {DateModified} | Task Completed: {Completed} | Notes On Completion: {Notes}";
+    }
+        public string DisplayAllStringWithAlphabet() {
+        return $"A) {Id}, B) {Name}, C) {Instructions}, D) {Assignee}, E) {DueDate}, F) {DateCreated}, G) {DateModified}, H) {Completed}, I) {Notes} ";
+    }
+    public string DisplayAllStringNoLables() {
+        return $"{Id}| {Name}| {Instructions}| {Assignee}| {DueDate}| {DateCreated}| {DateModified}| {Completed}| {Notes}";
+    }
 
 
 
