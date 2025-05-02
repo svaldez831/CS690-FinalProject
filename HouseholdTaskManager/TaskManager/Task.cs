@@ -11,9 +11,7 @@ public class Task {
     public string Instructions {get; set;}
     public string Notes {get; set;}
 
-    public Task() {
-        
-    }
+  
 
     public Task (string assignee, string name, string dueDate, string instructions = " " ) {
 

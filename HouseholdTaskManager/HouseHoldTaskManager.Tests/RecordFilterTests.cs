@@ -1,6 +1,5 @@
 namespace HouseHoldTaskManager.Tests;
 
-using Microsoft.VisualStudio.TestPlatform.ObjectModel;
 using TaskManager;
 public class RecordFilterTests {
     
