@@ -98,15 +98,19 @@ public static class FileHelper {
                 newCols[8] = bill.Instructions;
                 newCols[9] = bill.Notes;
             }
+            bool found = false;
             for(int i = 0; i < rows.Count; i++) {
                 string[] columns = rows[i].Split(',');
                 if(columns[0].Trim() == itemId) {
                     rows[i] = string.Join(",", newCols);
+                    found = true;
                     break;
                 }
             }
+            if(!found) { 
+                rows.Add(string.Join(",", newCols));
+            }
         }
-
         File.WriteAllLines(filePath, rows);
     }
 

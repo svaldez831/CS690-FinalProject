@@ -20,5 +20,16 @@ public static class RecordFilter {
         }
         return result;
     }
+
+    public static List<Task> ExtractTasksCompleted(List<Task> tasks){
+        List<Task> newList = new List<Task>();
+        foreach(Task task in tasks) {
+        if (task.Completed) {
+                newList.Add(task);
+            }
+        }
+
+        return newList;
+    }
     
 }

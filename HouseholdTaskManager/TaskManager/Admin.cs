@@ -29,10 +29,10 @@ public class Admin {
                     AdminActions.ViewAllUsers();
                     break;
                 case "4":
-                    Console.WriteLine("Case4");
+                    AdminActions.ViewTasksCompleted();
                     break;
                 case "5":
-                    Console.WriteLine("Case5");
+                    AdminActions.addNewPriorities();
                     break;
                 case "6":
                     running = false;
