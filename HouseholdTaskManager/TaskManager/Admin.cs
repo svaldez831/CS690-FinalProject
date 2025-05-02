@@ -32,7 +32,7 @@ public class Admin {
                     AdminActions.ViewTasksCompleted();
                     break;
                 case "5":
-                    AdminActions.addNewPriorities();
+                    AdminActions.addNewPriorities("records.txt");
                     break;
                 case "6":
                     running = false;

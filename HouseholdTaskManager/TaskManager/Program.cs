@@ -90,7 +90,7 @@ class Program
 
                             if(saveChanges == "Yes") {
                                 var taskToSave = new List<object>{taskSelected};
-                                FileHelper.SaveToFile2(taskToSave);                                
+                                FileHelper.SaveToFile2(taskToSave, textFile);                                
                                 Console.WriteLine($"Changes to Task: '{taskSelected.Name}' has been Saved Successfully");
                             } 
                             else{
@@ -101,7 +101,7 @@ class Program
                         else {
                             Console.WriteLine($"Task '{taskSelected.Name}' has been Marked as Complete as of {taskSelected.DateModified}");
                             var taskToSave = new List<object>{taskSelected};
-                            FileHelper.SaveToFile2(taskToSave);                                
+                            FileHelper.SaveToFile2(taskToSave, textFile);                                
                             Console.WriteLine($"Changes to Task: '{taskSelected.Name}' has been Saved Successfully");
                         }
 
@@ -149,7 +149,7 @@ class Program
 
                             if(saveChanges == "Yes") {
                                 var billToSave = new List<object>{billSelected};
-                                FileHelper.SaveToFile2(billToSave);                                
+                                FileHelper.SaveToFile2(billToSave, textFile);                                
                                 Console.WriteLine($"Changes to Bill '{billSelected.Name}' has been Saved Successfully");
                             } 
                             else{
@@ -160,7 +160,7 @@ class Program
                         else {
                             Console.WriteLine($"Bill '{billSelected.Name}' has been Marked as Payed as of {billSelected.DateModified}");
                             var billToSave = new List<object>{billSelected};
-                            FileHelper.SaveToFile2(billToSave);                                
+                            FileHelper.SaveToFile2(billToSave, textFile);                                
                             Console.WriteLine($"Changes to Bill '{billSelected.Name}' has been Saved Successfully");
                         }
 

@@ -45,7 +45,7 @@ public static class AdminActions {
         Console.ReadKey();
     }
 
-    public static void addNewPriorities() {
+    public static void addNewPriorities(string textFile) {
         var TypeSelection = AnsiConsole.Prompt(
             new SelectionPrompt<string>()
             .Title("What new Priority is this?")
@@ -54,6 +54,7 @@ public static class AdminActions {
         );
         
         if(TypeSelection == "Task") {
+            
             Task result = new Task(" ", " ", " ", " ");
             result.Id = DateTime.Now.Ticks.ToString();
             result.Type = TypeSelection;
@@ -91,7 +92,7 @@ public static class AdminActions {
 
             if (taskSave == "Yes") {
                 var priorityToSave = new List<object>{result};
-                FileHelper.SaveToFile2(priorityToSave);                                
+                FileHelper.SaveToFile2(priorityToSave, textFile);                                
                 Console.WriteLine($"New Entry '{result.Name}' has been Saved Successfully");
             }
             else {
@@ -136,7 +137,7 @@ public static class AdminActions {
 
             if (saveBill == "Yes") {
                 var priorityToSave = new List<object>{result};
-                FileHelper.SaveToFile2(priorityToSave);                                
+                FileHelper.SaveToFile2(priorityToSave, textFile);                                
                 Console.WriteLine($"New Entry '{result.Name}' has been Saved Successfully");
                 Console.WriteLine("Press any key to continue...");
                 Console.ReadKey();

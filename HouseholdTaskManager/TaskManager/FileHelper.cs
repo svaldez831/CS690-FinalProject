@@ -61,8 +61,8 @@ public static class FileHelper {
     }
 
 
-    public static void SaveToFile2(List<object> items) {
-        string filePath = "records.txt";
+    public static void SaveToFile2(List<object> items, string testFile) {
+        string filePath = testFile;
         List<string> rows = File.ReadAllLines(filePath).ToList();
 
         foreach (var item in items) {
