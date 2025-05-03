@@ -1,30 +1,32 @@
 namespace TaskManager;
 using Spectre.Console;
 public static class AdminActions {
-    public static void ViewAllTasks() {
+    public static int ViewAllTasks() {
         Console.Clear();
         var tasks = FileHelper.ReadTasksFromFile("records.txt");
         Console.WriteLine("== All Tasks ==");
-        Console.WriteLine("A) ID | B) Task Name | C) Description | D) Assigned To | E) Due | F) Date Created | G) Last Modified | H) Task Completed |I) Notes On Completion");
         foreach(var task in tasks) {
-            Console.WriteLine("\n" + task.DisplayAllStringWithAlphabet());
+            Console.WriteLine("\n" + task.DisplayAllString());
         }
         Console.WriteLine("Press any key to continue...");
         Console.ReadKey();
+
+        return tasks.Count;
     }
 
-    public static void ViewAllBills() {
+    public static int ViewAllBills() {
         Console.Clear();
         var bills = FileHelper.ReadBillsFromFile("records.txt");
         Console.WriteLine("== All Bills ==");
-        Console.WriteLine("A) ID | B) Bill Name | C) Description | D) Assigned To | E) Due | F) Date Created | G) Last Modified | H) Bill Paid |I) Notes On Completion");
         foreach(var bill in bills) {
-            Console.WriteLine("\n" + bill.DisplayAllStringWithAlphabet());
+            Console.WriteLine("\n" + bill.DisplayAllString());
         }
         Console.WriteLine("Press any key to continue...");
         Console.ReadKey();
+
+        return bills.Count;
     }
-    public static void ViewAllUsers() {
+    public static int ViewAllUsers() {
         Console.Clear(); 
         var users = FileHelper.GenerateUsers("records.txt");
         Console.WriteLine("=== All Users ===");
@@ -33,16 +35,33 @@ public static class AdminActions {
         }
         Console.WriteLine("Press any key to continue...");
         Console.ReadKey();
+
+        return users.Count;
     }
 
-    public static void ViewTasksCompleted() {
+    public static int ViewTasksCompleted() {
         var tasks = FileHelper.ReadTasksFromFile("records.txt");
         var completed = RecordFilter.ExtractTasksCompleted(tasks);
+         Console.WriteLine("=== All Completed Tasks ===");
         foreach(Task row in completed) {
             Console.WriteLine(row.DisplayAllString());
         }
         Console.WriteLine("Press any key to continue...");
         Console.ReadKey();
+        return completed.Count;
+    }
+
+    public static int ViewBillsPaid() {
+        var bills = FileHelper.ReadBillsFromFile("records.txt");
+        var completed = RecordFilter.ExtractBillsCompleted(bills);
+         Console.WriteLine("=== All Paid Bills ===");
+        foreach(Bill bill in completed) {
+            Console.WriteLine(bill.DisplayAllString());
+        }
+        Console.WriteLine("Press any key to continue...");
+        Console.ReadKey();
+        
+        return completed.Count;
     }
 
     public static void addNewPriorities(string textFile) {
@@ -153,6 +172,19 @@ public static class AdminActions {
         
     }
     
+public static void GenerateReport() {
+    int allTasks = ViewAllTasks();
+    int allBills = ViewAllBills();
+    int completedTasks = ViewTasksCompleted();
+    int paidBills = ViewBillsPaid();
+    Console.WriteLine($"There are in total of {allTasks} Tasks and {allBills} Bills in Saved");
+    Console.WriteLine($"{completedTasks} Tasks are Completed and {allTasks - completedTasks} are still Open");
+     Console.WriteLine($"{paidBills} Bills are Paid and {allBills  - paidBills} are still Open");
+
+}
+
+
+
 
 
 }

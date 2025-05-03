@@ -59,7 +59,7 @@ class Program
                         .UseConverter(t=> $"{t.Name}")
                         .AddChoices(userSelectedTasks)
                     ); 
-                    Console.WriteLine(taskSelected.ToDisplayString());
+                    Console.WriteLine(taskSelected.DisplayAllString());
                     var taskPayed = AnsiConsole.Prompt(
                     new SelectionPrompt<string>()
                         .Title("Is this Task Completed?")
@@ -118,7 +118,7 @@ class Program
                         .UseConverter(t=> $"{t.Name}")
                         .AddChoices(userSelectedBills)
                     ); 
-                    Console.WriteLine(billSelected.ToDisplayString());
+                    Console.WriteLine(billSelected.DisplayAllString());
                     var billPayed = AnsiConsole.Prompt(
                     new SelectionPrompt<string>()
                         .Title("Is this Bill Paid Off?")

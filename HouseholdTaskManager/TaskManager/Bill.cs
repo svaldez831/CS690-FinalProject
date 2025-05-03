@@ -30,7 +30,7 @@ public class Bill {
     }
 
     public string DisplayAllString() {
-        return $"| ID: {Id} |Bill Name: {Name} | Description: {Instructions}  | Assigned To: {Assignee}| Due: {DueDate} | Date Created: {DateCreated} | Last Modified: {DateModified} | Bill Paid: {Paid} | Notes On Completion: {Notes}";
+        return $"|ID: {Id}\n|Bill Name: {Name}\n|Description: {Instructions}\n|Assigned To: {Assignee}\n|Due: {DueDate}\n|Date Created: {DateCreated}\n|Last Modified: {DateModified}\n|Bill Paid: {Paid}\n|Notes On Completion: {Notes}\n";
     }
         public string DisplayAllStringWithAlphabet() {
         return $"A) {Id}, B) {Name}, C) {Instructions}, D) {Assignee}, E) {DueDate}, F) {DateCreated}, G) {DateModified}, H) {Paid}, I) {Notes} ";

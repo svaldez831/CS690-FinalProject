@@ -15,7 +15,7 @@ public class Admin {
                 new SelectionPrompt<string>()
                 .Title("Please Select an option to Continue:")
                 .PageSize(10)
-                .AddChoices("1. View All tasks", "2. View All Bills", "3. View All Users", "4. View Completed", "5. Create New Tasks or Bills", "6. Exit Admin")
+                .AddChoices("1. View All tasks", "2. View All Bills", "3. View All Users", "4. View Completed", "5. View Paid ", "6. Create New Tasks or Bills", "7. Generate Report", "8. Exit Admin")
             );
 
             switch (Char.ToString(selectionOption[0])) {
@@ -32,9 +32,15 @@ public class Admin {
                     AdminActions.ViewTasksCompleted();
                     break;
                 case "5":
-                    AdminActions.addNewPriorities("records.txt");
+                    AdminActions.ViewBillsPaid();
                     break;
                 case "6":
+                    AdminActions.addNewPriorities("records.txt");                    
+                    break;
+                case "7":
+                    AdminActions.GenerateReport();
+                    break;
+                case "8":
                     running = false;
                     break;
 

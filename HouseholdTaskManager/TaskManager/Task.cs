@@ -32,7 +32,7 @@ public class Task {
     }
 
     public string DisplayAllString() {
-        return $"| ID: {Id} |Task Name: {Name} | Description: {Instructions}  | Assigned To: {Assignee}| Due: {DueDate} | Date Created: {DateCreated} | Last Modified: {DateModified} | Task Completed: {Completed} | Notes On Completion: {Notes}";
+        return $"|ID: {Id}\n|Task Name: {Name}\n|Description: {Instructions}\n|Assigned To: {Assignee}\n|Due: {DueDate}\n|Date Created: {DateCreated}\n|Last Modified: {DateModified}\n|Task Completed: {Completed}\n|Notes On Completion: {Notes}\n";
     }
         public string DisplayAllStringWithAlphabet() {
         return $"A) {Id}, B) {Name}, C) {Instructions}, D) {Assignee}, E) {DueDate}, F) {DateCreated}, G) {DateModified}, H) {Completed}, I) {Notes} ";

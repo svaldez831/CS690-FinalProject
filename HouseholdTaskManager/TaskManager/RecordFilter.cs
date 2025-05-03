@@ -31,5 +31,17 @@ public static class RecordFilter {
 
         return newList;
     }
+
+    public static List<Bill> ExtractBillsCompleted(List<Bill> bills){
+    List<Bill> newList = new List<Bill>();
+    foreach(Bill bill in bills) {
+    if (bill.Paid) {
+            newList.Add(bill);
+        }
+    }
+
+    return newList;
+}
+
     
 }
